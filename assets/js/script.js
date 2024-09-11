@@ -1,4 +1,8 @@
-let newStoriesArray;
+let newStoriesArray = [];
+
+let storyLimit = 10;
+
+let mainArray = [];
 
 async function fetchNewStories() {
   let response = await fetch(
@@ -8,12 +12,34 @@ async function fetchNewStories() {
   newStoriesArray = data;
 }
 
-async function fetchSingleStory(storyId) {
-  let response = await fetch(
-    `https://hacker-news.firebaseio.com/v0/item/${storyId}.json`
+async function fetchInitialStories(limit) {
+  let arr = newStoriesArray.splice(0, limit);
+  let urls = arr.map(
+    (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
-  let story = await response.json();
-  console.log(story);
+  Promise.all(urls.map((url) => fetch(url).then((res) => res.json()))).then(
+    (jsons) => jsons.forEach((json) => mainArray.push(json))
+  );
+  console.log(mainArray);
 }
 
-fetchSingleStory("4355");
+async function loadMoreStories() {
+  let arr = newStoriesArray.splice(11, 10);
+  let urls = arr.map(
+    (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+  );
+  Promise.all(urls.map((url) => fetch(url).then((res) => res.json()))).then(
+    (jsons) => jsons.forEach((json) => mainArray.push(json))
+  );
+  console.log(mainArray);
+}
+
+async function run() {
+  await fetchNewStories();
+  fetchInitialStories(storyLimit);
+}
+
+let button = document.querySelector(".button");
+button.addEventListener("click", loadMoreStories);
+
+run();
