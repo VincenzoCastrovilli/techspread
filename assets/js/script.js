@@ -15,15 +15,17 @@ async function fetchTenStories() {
   let urls = arr.map(
     (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
-  Promise.all(urls.map((url) => fetch(url).then((res) => res.json()))).then(
-    (jsons) => jsons.forEach((json) => mainArray.push(json))
+  const jsons = await Promise.all(
+    urls.map((url) => fetch(url).then((res) => res.json()))
   );
+
+  jsons.forEach((json) => mainArray.push(json));
   console.log(mainArray);
 }
 
 async function run() {
   await fetchNewStories();
-  fetchTenStories();
+  await fetchTenStories();
 }
 
 let button = document.querySelector(".button");
