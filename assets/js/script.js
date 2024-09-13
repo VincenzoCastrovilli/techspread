@@ -1,7 +1,5 @@
 let newStoriesArray = [];
 
-let mainArray = [];
-
 async function fetchNewStories() {
   let response = await fetch(
     "https://hacker-news.firebaseio.com/v0/newstories.json"
@@ -19,8 +17,19 @@ async function fetchTenStories() {
     urls.map((url) => fetch(url).then((res) => res.json()))
   );
 
-  jsons.forEach((json) => mainArray.push(json));
-  console.log(mainArray);
+  jsons.forEach((json) => {
+    const story = document.createElement("div");
+    let date = new Date(json.time * 1000);
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    story.textContent = `${json.title}, ${day}/${month}/${year} `;
+    const link = document.createElement("a");
+    link.textContent = "View more";
+    link.setAttribute("href", json.url);
+    story.append(link);
+    container.append(story);
+  });
 }
 
 async function run() {
@@ -30,5 +39,7 @@ async function run() {
 
 let button = document.querySelector(".button");
 button.addEventListener("click", fetchTenStories);
+
+let container = document.querySelector(".main");
 
 run();
