@@ -1,7 +1,5 @@
 let newStoriesArray = [];
 
-let storyLimit = 10;
-
 let mainArray = [];
 
 async function fetchNewStories() {
@@ -12,19 +10,8 @@ async function fetchNewStories() {
   newStoriesArray = data;
 }
 
-async function fetchInitialStories(limit) {
-  let arr = newStoriesArray.splice(0, limit);
-  let urls = arr.map(
-    (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
-  );
-  Promise.all(urls.map((url) => fetch(url).then((res) => res.json()))).then(
-    (jsons) => jsons.forEach((json) => mainArray.push(json))
-  );
-  console.log(mainArray);
-}
-
-async function loadMoreStories() {
-  let arr = newStoriesArray.splice(11, 10);
+async function fetchTenStories() {
+  let arr = newStoriesArray.splice(0, 10);
   let urls = arr.map(
     (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
@@ -36,10 +23,10 @@ async function loadMoreStories() {
 
 async function run() {
   await fetchNewStories();
-  fetchInitialStories(storyLimit);
+  fetchTenStories();
 }
 
 let button = document.querySelector(".button");
-button.addEventListener("click", loadMoreStories);
+button.addEventListener("click", fetchTenStories);
 
 run();
