@@ -52,14 +52,14 @@ function createCard(story) {
   let day = date.getDate();
   let month = monthsArray[date.getMonth()];
   let year = date.getFullYear();
-  cardDate.textContent = `${day} ${month} ${year}`;
+  cardDate.innerHTML = ` <i class="fa-regular fa-calendar"></i> ${day} ${month} ${year}`;
   card.append(cardDate);
 
   const cardLink = document.createElement("a");
   cardLink.classList.add("card-link");
   cardLink.setAttribute("href", story.url);
   cardLink.setAttribute("target", "_blank");
-  cardLink.textContent = "READ MORE ->";
+  cardLink.innerHTML = `READ MORE  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 4px"></i>`;
   card.append(cardLink);
 
   container.append(card);
@@ -73,6 +73,6 @@ async function run() {
 let button = document.querySelector(".button");
 button.addEventListener("click", fetchTenStories);
 
-let container = document.querySelector(".main");
+let container = document.querySelector(".card-container");
 
 run();
