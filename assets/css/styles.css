@@ -5,11 +5,25 @@
   font-family: "Noticia Text", serif;
 }
 
+body {
+  background-color: #f5f7fa;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  gap: 20px;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
 .card-container {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
-  color: #f5f7fa;
 }
 
 .card {
