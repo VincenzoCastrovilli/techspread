@@ -1,5 +1,20 @@
 let newStoriesArray = [];
 
+const monthsArray = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 async function fetchNewStories() {
   let response = await fetch(
     "https://hacker-news.firebaseio.com/v0/newstories.json"
@@ -18,18 +33,36 @@ async function fetchTenStories() {
   );
 
   jsons.forEach((json) => {
-    const story = document.createElement("div");
-    let date = new Date(json.time * 1000);
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    story.textContent = `${json.title}, ${day}/${month}/${year} `;
-    const link = document.createElement("a");
-    link.textContent = "View more";
-    link.setAttribute("href", json.url);
-    story.append(link);
-    container.append(story);
+    createCard(json);
   });
+}
+
+function createCard(story) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const cardTitle = document.createElement("div");
+  cardTitle.classList.add("card-title");
+  cardTitle.textContent = story.title;
+  card.append(cardTitle);
+
+  const cardDate = document.createElement("div");
+  cardDate.classList.add("card-date");
+  let date = new Date(story.time * 1000);
+  let day = date.getDate();
+  let month = monthsArray[date.getMonth()];
+  let year = date.getFullYear();
+  cardDate.textContent = `${day} ${month} ${year}`;
+  card.append(cardDate);
+
+  const cardLink = document.createElement("a");
+  cardLink.classList.add("card-link");
+  cardLink.setAttribute("href", story.url);
+  cardLink.setAttribute("target", "_blank");
+  cardLink.textContent = "READ MORE ->";
+  card.append(cardLink);
+
+  container.append(card);
 }
 
 async function run() {
