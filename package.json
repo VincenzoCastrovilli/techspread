@@ -1,10 +1,20 @@
 {
   "devDependencies": {
+    "browserify": "^17.0.0",
     "buffer": "^6.0.3",
     "parcel": "^2.12.0",
     "process": "^0.11.10"
   },
   "dependencies": {
     "axios": "^1.7.7"
-  }
+  },
+  "name": "techspread",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "browserify main.js -o bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
