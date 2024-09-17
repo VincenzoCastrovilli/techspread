@@ -65,6 +65,43 @@ body {
   background-color: #0056b3;
 }
 
+.button-list {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.load-btn,
+.top-btn {
+  width: 120px;
+  padding: 5px 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.load-btn {
+  color: #ffffff;
+  background-color: #28a745;
+}
+
+.load-btn:hover {
+  background-color: #218838;
+}
+
+.top-btn {
+  color: #ffffff;
+  background-color: #ffc107;
+}
+
+.top-btn:hover {
+  background-color: #e0a800;
+}
+
 @media screen and (max-width: 600px) {
   .header {
     font-size: 24px;

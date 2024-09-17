@@ -65,13 +65,21 @@ function createCard(story) {
   container.append(card);
 }
 
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 async function run() {
   await fetchNewStories();
   await fetchTenStories();
 }
 
-let button = document.querySelector(".button");
-button.addEventListener("click", fetchTenStories);
+let loadButton = document.querySelector(".load-btn");
+loadButton.addEventListener("click", fetchTenStories);
+
+let topButton = document.querySelector(".top-btn");
+topButton.addEventListener("click", topFunction);
 
 let container = document.querySelector(".card-container");
 
