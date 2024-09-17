@@ -19,6 +19,17 @@ body {
   padding-top: 10px;
 }
 
+.intro {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.intro a {
+  color: black;
+}
+
 .card-container {
   display: flex;
   justify-content: center;
