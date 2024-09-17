@@ -1,3 +1,5 @@
+const axios = require("axios").default;
+
 let newStoriesArray = [];
 
 const monthsArray = [
@@ -15,26 +17,37 @@ const monthsArray = [
   "December",
 ];
 
+let container = document.querySelector(".card-container");
+
 async function fetchNewStories() {
-  let response = await fetch(
-    "https://hacker-news.firebaseio.com/v0/newstories.json"
-  );
-  let data = await response.json();
-  newStoriesArray = data;
+  try {
+    let { data } = await axios.get(
+      "https://hacker-news.firebaseio.com/v0/newstories.json"
+    );
+
+    newStoriesArray = data;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 async function fetchTenStories() {
-  let arr = newStoriesArray.splice(0, 10);
-  let urls = arr.map(
+  let tenStories = newStoriesArray.splice(0, 10);
+  let urls = tenStories.map(
     (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
-  const jsons = await Promise.all(
-    urls.map((url) => fetch(url).then((res) => res.json()))
-  );
 
-  jsons.forEach((json) => {
-    createCard(json);
-  });
+  try {
+    const storiesData = await Promise.all(
+      urls.map((url) => axios.get(url).then((res) => res.data))
+    );
+
+    storiesData.forEach((story) => {
+      createCard(story);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function createCard(story) {
@@ -70,7 +83,7 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-async function run() {
+async function updateStories() {
   await fetchNewStories();
   await fetchTenStories();
 }
@@ -84,9 +97,7 @@ topButton.addEventListener("click", topFunction);
 let updateButton = document.querySelector(".update-btn");
 updateButton.addEventListener("click", () => {
   container.textContent = "";
-  run();
+  updateStories();
 });
 
-let container = document.querySelector(".card-container");
-
-run();
+updateStories();
