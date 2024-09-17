@@ -81,6 +81,12 @@ loadButton.addEventListener("click", fetchTenStories);
 let topButton = document.querySelector(".top-btn");
 topButton.addEventListener("click", topFunction);
 
+let updateButton = document.querySelector(".update-btn");
+updateButton.addEventListener("click", () => {
+  container.textContent = "";
+  run();
+});
+
 let container = document.querySelector(".card-container");
 
 run();

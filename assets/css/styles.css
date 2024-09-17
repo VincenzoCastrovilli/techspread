@@ -77,16 +77,18 @@ body {
 }
 
 .button-list {
-  margin: 20px 0;
+  margin: 20px auto;
+  width: 80%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 }
 
 .load-btn,
-.top-btn {
-  width: 120px;
+.top-btn,
+.update-btn {
   padding: 5px 8px;
   font-size: 16px;
   border-radius: 4px;
@@ -111,6 +113,15 @@ body {
 
 .top-btn:hover {
   background-color: #e0a800;
+}
+
+.update-btn {
+  background-color: #17a2b8;
+  color: #ffffff;
+}
+
+.update-btn:hover {
+  background-color: #138496;
 }
 
 @media screen and (max-width: 600px) {
