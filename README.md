@@ -96,7 +96,7 @@ You must have npm installed
 
 Vincenzo Castrovilli - vcastrovilli@icloud.com
 
-Project Link: [https://github.com/VincenzoCastrovilli/counter-js](https://github.com/VincenzoCastrovilli/techspread)
+Project Link: [https://github.com/VincenzoCastrovilli/techspread](https://github.com/VincenzoCastrovilli/techspread)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
