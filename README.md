@@ -111,6 +111,6 @@ Project Link: [https://github.com/VincenzoCastrovilli/counter-js](https://github
 [stars-url]: https://github.com/VincenzoCastrovilli/techspread/stargazers
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/vincenzo-castrovilli
-[product-screenshot]: assets/images/sreenshot.png
+[product-screenshot]: https://github.com/VincenzoCastrovilli/techspread/blob/main/assets/images/screenshot.png
 [Javascript]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
 [HTML5]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
