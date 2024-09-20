@@ -13,18 +13,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
+  font-size: 18px;
   gap: 20px;
   padding-bottom: 30px;
   padding-top: 10px;
 }
 
 .intro {
+  margin: 0 auto;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   text-align: center;
   font-size: 14px;
+  width: 95%;
 }
 
 .intro a {
@@ -36,6 +38,8 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .card {
@@ -142,5 +146,15 @@ body {
 
   .intro {
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  #logo {
+    display: none;
+  }
+
+  .card {
+    font-size: 14px;
   }
 }
