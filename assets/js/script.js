@@ -1,6 +1,8 @@
 const axios = require("axios").default;
+const _ = require("lodash");
 
 let newStoriesArray = [];
+let currentIndex = 0;
 
 const monthsArray = [
   "January",
@@ -25,14 +27,15 @@ async function fetchNewStories() {
       "https://hacker-news.firebaseio.com/v0/newstories.json"
     );
 
-    newStoriesArray = data;
+    newStoriesArray = _.chunk(data, 10);
   } catch (error) {
     console.log(error.message);
   }
 }
 
 async function fetchTenStories() {
-  let tenStories = newStoriesArray.splice(0, 10);
+  let tenStories = newStoriesArray[currentIndex];
+  currentIndex++;
   let urls = tenStories.map(
     (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
@@ -103,7 +106,6 @@ function loadCards(storiesData) {
 async function renderStories() {
   const storiesData = await fetchTenStories();
   if (storiesData) {
-    console.log("entra");
     loadCards(storiesData);
   }
 }
@@ -114,20 +116,20 @@ function topFunction() {
 }
 
 async function updateStories() {
+  currentIndex = 0;
+  newStoriesArray = [];
+  container.textContent = "";
   await fetchNewStories();
   await renderStories();
 }
 
 let loadButton = document.querySelector(".load-btn");
-loadButton.addEventListener("click", fetchTenStories);
+loadButton.addEventListener("click", renderStories);
 
 let topButton = document.querySelector(".top-btn");
 topButton.addEventListener("click", topFunction);
 
 let updateButton = document.querySelector(".update-btn");
-updateButton.addEventListener("click", () => {
-  container.textContent = "";
-  updateStories();
-});
+updateButton.addEventListener("click", updateStories);
 
 updateStories();
