@@ -42,40 +42,70 @@ async function fetchTenStories() {
       urls.map((url) => axios.get(url).then((res) => res.data))
     );
 
-    storiesData.forEach((story) => {
-      createCard(story);
-    });
+    return storiesData;
   } catch (error) {
     console.log(error);
   }
 }
 
+function createDOMElement(type, classList, content, attributes = {}) {
+  const element = document.createElement(type);
+  if (classList) {
+    classList
+      .split(" ")
+      .forEach((className) => element.classList.add(className));
+  }
+  if (content) {
+    element.innerHTML = content;
+  }
+  for (let attr in attributes) {
+    element.setAttribute(attr, attributes[attr]);
+  }
+  return element;
+}
+
 function createCard(story) {
-  const card = document.createElement("div");
-  card.classList.add("card");
+  const card = createDOMElement("div", "card");
+  const cardTitle = createDOMElement("div", "card-title", story.title);
 
-  const cardTitle = document.createElement("div");
-  cardTitle.classList.add("card-title");
-  cardTitle.textContent = story.title;
-  card.append(cardTitle);
+  const cardDate = createDOMElement(
+    "div",
+    "card-date",
+    `<i class="fa-regular fa-calendar"></i> ${new Date(
+      story.time * 1000
+    ).getDate()} ${
+      monthsArray[new Date(story.time * 1000).getMonth()]
+    } ${new Date(story.time * 1000).getFullYear()}`
+  );
+  const cardLink = createDOMElement(
+    "a",
+    "card-link",
+    'READ MORE <i class="fa-solid fa-arrow-up-right-from-square"></i>',
+    {
+      href: story.url,
+      target: "_blank",
+    }
+  );
 
-  const cardDate = document.createElement("div");
-  cardDate.classList.add("card-date");
-  let date = new Date(story.time * 1000);
-  let day = date.getDate();
-  let month = monthsArray[date.getMonth()];
-  let year = date.getFullYear();
-  cardDate.innerHTML = ` <i class="fa-regular fa-calendar"></i> ${day} ${month} ${year}`;
-  card.append(cardDate);
+  card.append(cardTitle, cardDate, cardLink);
+  return card;
+}
 
-  const cardLink = document.createElement("a");
-  cardLink.classList.add("card-link");
-  cardLink.setAttribute("href", story.url);
-  cardLink.setAttribute("target", "_blank");
-  cardLink.innerHTML = `READ MORE  <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 4px"></i>`;
-  card.append(cardLink);
+function loadCards(storiesData) {
+  const fragment = document.createDocumentFragment();
+  storiesData.forEach((story) => {
+    const card = createCard(story);
+    fragment.appendChild(card);
+  });
+  container.appendChild(fragment);
+}
 
-  container.append(card);
+async function renderStories() {
+  const storiesData = await fetchTenStories();
+  if (storiesData) {
+    console.log("entra");
+    loadCards(storiesData);
+  }
 }
 
 function topFunction() {
@@ -85,7 +115,7 @@ function topFunction() {
 
 async function updateStories() {
   await fetchNewStories();
-  await fetchTenStories();
+  await renderStories();
 }
 
 let loadButton = document.querySelector(".load-btn");
