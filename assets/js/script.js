@@ -98,9 +98,9 @@ function loadCards(storiesData) {
   const fragment = document.createDocumentFragment();
   storiesData.forEach((story) => {
     const card = createCard(story);
-    fragment.appendChild(card);
+    fragment.append(card);
   });
-  container.appendChild(fragment);
+  container.append(fragment);
 }
 
 async function renderStories() {
